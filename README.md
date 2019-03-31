@@ -1,1 +1,1 @@
-Test commit
+This is our course project
