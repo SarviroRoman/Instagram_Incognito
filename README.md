@@ -1,1 +1,2 @@
-This is our course project
+Start application: ng serve
+Start server: php -f server.php
