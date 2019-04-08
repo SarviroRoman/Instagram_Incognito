@@ -5,7 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+// import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
+import { AlertModule } from 'ngx-bootstrap';
+
 import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
@@ -17,7 +20,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatProgressSpinnerModule,
+    // MatProgressSpinnerModule,
+    AlertModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
