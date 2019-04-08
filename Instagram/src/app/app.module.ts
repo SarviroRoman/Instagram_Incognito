@@ -10,11 +10,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlertModule } from 'ngx-bootstrap';
 
 import { SpinnerComponent } from './spinner/spinner.component';
+import { Welcome } from './welcome/welcome';
 
 @NgModule({
   declarations: [
     AppComponent,
     SpinnerComponent,
+    Welcome
   ],
   imports: [
     BrowserModule,
