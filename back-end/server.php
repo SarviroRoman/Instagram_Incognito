@@ -3,7 +3,6 @@
 //S_I_M_U_L_A_C_R
 require_once __DIR__ . '/../../vendor/autoload.php';
 use Workerman\Worker;
-include "/../d.local/index.php";
 // Create a Websocket server
 $ws_worker = new Worker("websocket://localhost:8082");
 
