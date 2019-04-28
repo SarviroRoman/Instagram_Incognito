@@ -14,13 +14,15 @@ import { MatInputModule } from '@angular/material/input';
 import { AlertModule } from 'ngx-bootstrap';
 
 import { SpinnerComponent } from './spinner/spinner.component';
-import { Welcome } from './welcome/welcome';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { AccInfoComponent } from './accInfo/accInfo.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SpinnerComponent,
-    Welcome,
+    WelcomeComponent,
+    AccInfoComponent,
   ],
   imports: [
     BrowserModule,

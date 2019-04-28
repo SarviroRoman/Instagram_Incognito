@@ -2,11 +2,11 @@ import { Component } from "@angular/core";
 
 @Component({
   selector: 'app-welcome',
-  templateUrl: './welcome.html',
-  styleUrls: ['./welcome.css'],
+  templateUrl: './welcome.component.html',
+  styleUrls: ['./welcome.component.css'],
 })
 
-export class Welcome {
+export class WelcomeComponent {
   constructor() {}
   value = '';
 }
