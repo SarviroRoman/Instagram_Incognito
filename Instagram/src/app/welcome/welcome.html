@@ -1,3 +1,39 @@
-<div class="container">
-  <h1 class="text-center text-light">Welcome</h1>
+<div class="welcome-section">
+  <header>
+    <div class="welcome-header text-center">
+      <h1>Welcome Instagram Incognito</h1>
+    </div>
+  </header>
+  <main>
+    <div class="welcome-main container">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <img src="../../assets/Images/logo_instagram_black.svg" class="card-img" alt="logo instagram black">
+          </div>
+          <div class="col-md-9 d-flex align-items-center">
+            <div class="welcome-main-text">
+              <p class="welcome-main-text-about">
+                Instagram Incognito is a service that allows you to keep your requests and visits on the social network <a href="https://www.instagram.com" target="_blank" class="href-instagram">Instagram</a> secret.
+                Also, this resource allows you to download photos of users in maximum resolution.
+              </p>
+              <div class="row">
+                <div class="col-md-9">
+                  <mat-form-field color='warn' class="example-form-field">
+                    <input matInput type="text" placeholder="Enter name: " [(ngModel)]="value">
+                    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                  </mat-form-field> 
+                </div>
+                <div class="col-md-3 d-flex align-items-center">
+                  <button mat-button class="seacrh-button">Serch</button>               
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
 </div>

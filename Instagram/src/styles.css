@@ -1,8 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
 body{
 	background: url(assets/Images/bcg.jpg) no-repeat center center fixed;
 	background-size: cover;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-label{
+	color: white;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-underline{
+	background-color: white;
 }

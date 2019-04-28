@@ -5,7 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 import { AlertModule } from 'ngx-bootstrap';
 
@@ -16,14 +20,17 @@ import { Welcome } from './welcome/welcome';
   declarations: [
     AppComponent,
     SpinnerComponent,
-    Welcome
+    Welcome,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    // MatProgressSpinnerModule,
     AlertModule.forRoot(),
+    MatIconModule,
+    MatButtonModule,
+    FormsModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

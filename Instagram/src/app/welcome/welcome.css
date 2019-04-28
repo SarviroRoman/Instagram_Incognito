@@ -1,0 +1,44 @@
+.welcome-header {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-transform: uppercase;
+  background: rgb(115,125,148);
+  background: linear-gradient(90deg, rgba(115,125,148,0.5046393557422969) 0%, rgba(115,125,148,0) 100%);
+  color: black;
+}
+
+.welcome-main {
+  margin-top: 125px;
+}
+
+.welcome-main-text {
+  color: white;
+  font-size: 25px;
+}
+
+.welcome-main-text-about{
+  margin-bottom: 5px;
+}
+
+.href-instagram {
+  color: white;
+}
+a:hover{
+  color: darkred;
+}
+
+.example-form-field{
+  width: 100%;
+  color: red;
+}
+
+.seacrh-button{
+  width: 100%;
+  background: black;
+  color: white;
+  outline: none;
+  text-transform: uppercase;
+}
+.seacrh-button:hover{
+  color: red;
+}
