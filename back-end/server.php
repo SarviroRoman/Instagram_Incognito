@@ -3,6 +3,7 @@
 //S_I_M_U_L_A_C_R
 require_once __DIR__ . '/../../vendor/autoload.php';
 use Workerman\Worker;
+include "/../d.local/index.php";
 // Create a Websocket server
 $ws_worker = new Worker("websocket://localhost:8082");
 
@@ -35,24 +36,27 @@ $ws_worker->onMessage = function($connection, $request)
     //echo $data .PHP_EOL;
 
     switch($event){
-        case "getMediaByUserName":
-            if(getMediaByUserName($connection, $data)){
-                echo "Media user {$data} sent".PHP_EOL;
-            }else{
-                echo "WARNING Media user {$data} has not been sent".PHP_EOL;
-            };
-            break;
+      case "getProfile":
+        getProfile($connection, $data);
+        break;
+      case "getMediaByUserName":
+        if(getMediaByUserName($connection, $data)){
+            echo "Media user {$data} sent".PHP_EOL;
+        }else{
+            echo "WARNING Media user {$data} has not been sent".PHP_EOL;
+        };
+        break;
 
-        case "getStories":
-            getStories($connection);
-            break;
-        case "getS":
-            getS($connection, $data);
-            break;
-        default:
-            badAction($connection, $event);
-            break;
-    }
+      case "getStories":
+        getStories($connection);
+        break;
+      case "getS":
+        getS($connection, $data);
+        break;
+      default:
+        badAction($connection, $event);
+        break;
+  }
 };
 
 // Emitted when connection closed
@@ -65,7 +69,8 @@ $ws_worker->onClose = function($connection)
 Worker::runAll();
 
 function getMediaByUserName($connection, $data){
-    $instagram = new \InstagramScraper\Instagram();
+    $instagram = \InstagramScraper\Instagram::withCredentials('pashka.as', 'TIGRas3375745', '/path/to/cache/folder');
+    $instagram->login();
     $response = $instagram->getPaginateMedias($data);
 
     while ($response['hasNextPage'] != null){
@@ -82,6 +87,27 @@ function getMediaByUserName($connection, $data){
     return true;
 }
     
+function getProfile($connection, $param){
+  $instagram = new \InstagramScraper\Instagram();
+  $account = $instagram->getAccount($param);
+  
+  //print_r(get_class_methods($account));
+
+  $info = (object)[
+    "username" => $account->getUsername(),
+    "fullName" => $account->getFullName(),
+    "profilePicUrlHd" => $account->getProfilePicUrlHd(),
+    "biography" => $account->getBiography(),
+    "followsCount" => $account->getFollowsCount(),
+    "followedByCount" => $account->getFollowedByCount(),
+    "mediaCount" => $account->getMediaCount(),
+    "isPrivate" => $account->isPrivate()
+  ];
+
+  $json = json_encode($info);
+  $connection->send($json);
+}
+
 function sendMedias($connection, $medias){
     foreach ($medias as $media){
         $elem = (object)[
@@ -107,10 +133,21 @@ function getS($connection, $data){
     print_r($a);
 }
 
-function getStories($connection){
+function getStories($connection, $data){
     $instagram = \InstagramScraper\Instagram::withCredentials('S_I_M_U_L_A_C_R', 'ILoveYouMitya', '/path/to/cache/folder');
     $instagram->login();
+    //print_r(get_class_methods($instagram));
+    //print_r(get_class_vars($instagram));
+
     $stories = $instagram->getStories();
+
+
+
+    //$a = $instagram->withCredentials();
+    //echo $stories;
+    print_r($stories);
+
+    /*$stories = $instagram->getStories();
     print_r($stories);
 
     $elem = (object)[
@@ -131,7 +168,7 @@ function getStories($connection){
 
 
     $json = json_encode($elem);
-    $connection->send($json);
+    $connection->send($json);*/
 }
 
 
