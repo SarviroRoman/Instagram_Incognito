@@ -17,13 +17,13 @@ export class AppComponent {
   
   subscribeTo = this.websocketService.connect()
     .subscribe(data => {
-      setTimeout(() => {
+      if (data['username'] !== undefined) {
         this.data = data;
-        this.showSpinner = false;
-      }, 3000);
+        this.showSpinner = false; 
+      }
     });
 
   
-  emit = this.websocketService.emitEvent('getProfile', 'nrbna');
+  emit = this.websocketService.emitEvent('getProfile', 'nastyanvcv');
 
 }

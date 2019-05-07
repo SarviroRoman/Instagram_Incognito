@@ -521,7 +521,7 @@ hr {
 }
 .portfolio-theme .pf-header img{
 	/* display:block; */
-	max-width:120px;
+	max-width:150px;
 	border-radius:100%;
 	/* margin:10px auto 20px auto;  */
 }
@@ -544,7 +544,6 @@ hr {
 	text-align:justify;
 	font-size:16px;
 	line-height:35px;
-	margin-top:20px;
 }
 .portfolio-theme .pf-header p span{
 	color:#fff;
@@ -554,6 +553,8 @@ hr {
 .portfolio-theme .pf-isotope .p-element {
 	margin: 5px;
 	width: 23%;
+	min-height: 176px;
+	height: 176px;
 	text-align: center;
 	overflow: hidden;
 	cursor: pointer;
@@ -675,7 +676,7 @@ hr {
 	margin: 0 auto;
 }
 .show-button {
-	max-width: 600px;
+	max-width: 300px;
 	width: 100%;
 	text-transform: uppercase;
 	font-family: 'Open Sans', sans-serif;
@@ -684,6 +685,6 @@ hr {
 	outline: none;	
 }
 .show-button:hover {
-	color: grey;
+	color: black;
 	background: white;
 }
