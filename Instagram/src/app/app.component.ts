@@ -9,14 +9,18 @@ import { WebsocketService } from './web-socket_service';
 })
 export class AppComponent {
   title = 'Instagram';
-  data;
+  public data;
+  public showSpinner = true;
   constructor (
     private websocketService: WebsocketService,
   ) {}
   
   subscribeTo = this.websocketService.connect()
     .subscribe(data => {
-      this.data=data;
+      setTimeout(() => {
+        this.data = data;
+        this.showSpinner = false;
+      }, 3000);
     });
 
   

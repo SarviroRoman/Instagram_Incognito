@@ -8,7 +8,9 @@
 
 <!-- <router-outlet></router-outlet> -->
 
-<p>{{data | json}}</p>
+<app-spinner *ngIf='showSpinner'></app-spinner>
+
+<p *ngIf='!showSpinner'>{{data.username}}</p>
 
 <!-- <div >
   <a id="link-6" href="{{asd}}" download>link</a>
