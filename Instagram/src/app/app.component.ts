@@ -9,13 +9,21 @@ import { WebsocketService } from './web-socket_service';
 })
 export class AppComponent {
   title = 'Instagram';
-
+  public data;
+  public showSpinner = true;
   constructor (
     private websocketService: WebsocketService,
   ) {}
-
+  
   subscribeTo = this.websocketService.connect()
-    .subscribe(data => console.log(data));
+    .subscribe(data => {
+      if (data['username'] !== undefined) {
+        this.data = data;
+        this.showSpinner = false; 
+      }
+    });
 
-  emit = this.websocketService.emitEvent('getMediaByUserName', 'nrbna');
+  
+  emit = this.websocketService.emitEvent('getProfile', 'nastyanvcv');
+
 }

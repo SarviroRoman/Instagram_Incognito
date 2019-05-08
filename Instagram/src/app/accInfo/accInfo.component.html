@@ -1,0 +1,65 @@
+<!-- <p>{{photo | json}}</p> -->
+<div class="portfolio-theme">		
+  <!-- Portfolio header starts -->
+  <div class="pf-header">
+    <div class="container">
+      <div class="d-flex justify-content-center">
+        <!-- Image -->
+        <a href={{accInfo.profilePicUrlHd}}><img src={{accInfo.profilePicUrlHd}} alt={{accInfo.username}} class="img-responsive"/></a>
+      </div>
+      <!-- Name -->
+      <h1 class="text-light">{{accInfo.fullName}}</h1>
+      <h2 class="text-light">{{accInfo.biography}}</h2>
+      <!-- Paragraph -->
+      <!-- <p>Studious <span class="bg-red">London, UK</span> sees  quad quad nil molest. Lorem ipsum dolor sit amet,  adipi sicing elit donec ultrices lectus <span class="bg-green">Web Designer</span> ut conseqt. In et conseqt orci. <span class="bg-lblue">UI Developer</span> a male suada sem. Suspe ndisse  sed nibh nec imper diet.</p> -->
+      <p class="text-center">{{accInfo.mediaCount}} medias | {{accInfo.followedByCount}} followed | {{accInfo.followsCount}} follows</p>
+      <div class="buttons text-center">
+        <button mat-button class="show-button text-center" (click)="getPhoto(accInfo.username)">
+          Show photo
+          <span *ngIf='showPhotoButSpinner' class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Portfolio header ends -->
+
+  <!-- Portfolio  gallery Starts -->
+  <div *ngIf='showPhoto' class="portfolio pf-isotope container">
+    <!-- Portfolio Block Content -->
+    <div class="portfolio-content">
+      <div id="portfolio">
+
+        
+        
+        <!-- Portfolio Image and Text Container -->
+        <div *ngFor="let elem of photo" class="p-element">
+          <div class="img-style">
+            <!-- Image -->
+            <img class="img-responsive my-img" src="{{elem.linkUrl}}" target="_blank" alt="" />
+            <!-- image hover style for image #1 -->
+            <div class="image-hover">
+              <!-- Image Caption -->
+              <div class="image-caption">
+                <!-- Heading -->
+                <h4>Some Heading</h4>
+                <!-- Paragraph -->
+                <p>Neque porro quisquam est  quis ex quis  qui dolorem.</p>
+                <a href="{{elem.linkUrl}}" target="_blank" class="lightbox"><i class="fas fa-download"></i></a> &nbsp;
+                <a href="{{elem.link}}" target="_blank"><i class="fa fa-search"></i></a>  
+              </div>
+            </div>
+          </div>
+        </div>        
+
+
+
+
+        <div class="clearfix"></div>
+      
+      
+      
+      </div>
+    </div>
+  </div>
+  <!-- Portfolio gallery End -->
