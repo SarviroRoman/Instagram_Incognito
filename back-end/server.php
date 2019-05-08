@@ -1,6 +1,4 @@
 <?php
-//ILoveYouMitya
-//S_I_M_U_L_A_C_R
 require_once __DIR__ . '/../../vendor/autoload.php';
 use Workerman\Worker;
 include "/../d.local/index.php";
@@ -18,41 +16,37 @@ $ws_worker->onConnect = function($connection)
         "msg" => "Hello. I'm server. You connected",
     ]);
     $connection->send($message);
-
     echo "New connection\n";
  };
 
 // Emitted when data received
 $ws_worker->onMessage = function($connection, $request)
 {
-    //echo "get: {$request}" .PHP_EOL;
     $request = json_decode($request, true);
-    //echo "get: " .PHP_EOL;
-    //print_r($request);
+
     $event = $request["event"];
     $data = $request["data"];
 
-    //echo $event .PHP_EOL;
-    //echo $data .PHP_EOL;
-
     switch($event){
       case "getProfile":
-        getProfile($connection, $data);
+        if(!getProfile($connection, $data)){
+          $json = json_encode((object)[
+            "error" => "profile not found"
+          ]);
+          $connection->send($json);
+        }
+
         break;
+
       case "getMediaByUserName":
-        if(getMediaByUserName($connection, $data)){
-            echo "Media user {$data} sent".PHP_EOL;
-        }else{
-            echo "WARNING Media user {$data} has not been sent".PHP_EOL;
+        if(!getMediaByUserName($connection, $data)){
+          $json = json_encode((object)[
+            "error" => "medias not found"
+          ]);
+          $connection->send($json);
         };
         break;
 
-      case "getStories":
-        getStories($connection);
-        break;
-      case "getS":
-        getS($connection, $data);
-        break;
       default:
         badAction($connection, $event);
         break;
@@ -69,29 +63,34 @@ $ws_worker->onClose = function($connection)
 Worker::runAll();
 
 function getMediaByUserName($connection, $data){
-    $instagram = \InstagramScraper\Instagram::withCredentials('pashka.as', 'TIGRas3375745', '/path/to/cache/folder');
-    $instagram->login();
-    $response = $instagram->getPaginateMedias($data);
+  $instagram = new \InstagramScraper\Instagram();
+  $response = $instagram->getPaginateMedias($data);
+  $allMedias = [];
 
-    while ($response['hasNextPage'] != null){
-        // $medias = array_merge($medias, $response['medias']);
-        $medias = $response['medias'];
-        sendMedias($connection, $medias);
-        $response = $instagram->getPaginateMedias($data, $response['maxId']);
-    }
+  while ($response['hasNextPage'] != null){
+    // $medias = array_merge($medias, $response['medias']);
+    $medias = $response['medias'];
+    $allMedias = array_merge($allMedias, getMedias($medias));
+    $response = $instagram->getPaginateMedias($data, $response['maxId']);
+  } 
 
-    if($response['hasNextPage'] == null){
-        $medias = $response['medias'];
-        sendMedias($connection, $medias);
-    }
-    return true;
+  if($response['hasNextPage'] == null){
+    $medias = $response['medias'];
+    $allMedias = array_merge($allMedias, getMedias($medias));
+  }
+  
+  $json = json_encode((object)$allMedias);
+  $connection->send($json);
+  return true;
 }
     
 function getProfile($connection, $param){
   $instagram = new \InstagramScraper\Instagram();
-  $account = $instagram->getAccount($param);
-  
-  //print_r(get_class_methods($account));
+  try {
+    $account = $instagram->getAccount($param);
+  } catch(Exception $e) {
+    return false;
+  }
 
   $info = (object)[
     "username" => $account->getUsername(),
@@ -106,77 +105,29 @@ function getProfile($connection, $param){
 
   $json = json_encode($info);
   $connection->send($json);
+  getMediaByUserName($connection, $param);
+  return true;
 }
-
-function sendMedias($connection, $medias){
-    foreach ($medias as $media){
-        $elem = (object)[
-            "createdTime" => $media->getCreatedTime(),
-            "commecntsCount" => $media->getCommentsCount(),
-            "likesCount" => $media->getLikesCount(),
-            "link" => $media->getLink(),
-            "linkUrl" => $media->getImageHighResolutionUrl(),
-            "type" => $media->getType(),
-        ];
-        $arr[] = $elem;
-    }
-
-    $json = json_encode((object)$arr);
-
-    $connection->send($json);
-}
-
-function getS($connection, $data){
-    $instagram = new \InstagramScraper\Instagram();
-    $account = $instagram->getAccount($data);
-    $a = $account -> getColumns($data);
-    print_r($a);
-}
-
-function getStories($connection, $data){
-    $instagram = \InstagramScraper\Instagram::withCredentials('S_I_M_U_L_A_C_R', 'ILoveYouMitya', '/path/to/cache/folder');
-    $instagram->login();
-    //print_r(get_class_methods($instagram));
-    //print_r(get_class_vars($instagram));
-
-    $stories = $instagram->getStories();
-
-
-
-    //$a = $instagram->withCredentials();
-    //echo $stories;
-    print_r($stories);
-
-    /*$stories = $instagram->getStories();
-    print_r($stories);
-
-    $elem = (object)[
-        "username" => $stories[0]["owner"]["username"],
-        "profilePicUrl" => $stories[0]["owner"]["profilePicUrl"],
-        "imgVidLowResolutionUrl" => $stories[0]["stories"][0]["imageLowResolutionUrl"],
-        "imgVidThumbnailUrl" => $stories[0]["stories"][0]["imageThumbnailUrl"],
-        "imgVidStandardResolutionUrl" => $stories[0]["stories"][0]["imageStandardResolutionUrl"],
-        "imgVidHighResolutionUrl" => $stories[0]["stories"][0]["imageHighResolutionUrl"],
-    ];
-
-    echo $stories[0]["owner"]["username"].PHP_EOL;
-    echo $stories[0]["owner"]["profilePicUrl"].PHP_EOL;
-    echo $stories[0]["stories"][0]["imageLowResolutionUrl"].PHP_EOL;
-    echo $stories[0]["stories"][0]["imageThumbnailUrl"].PHP_EOL;
-    echo $stories[0]["stories"][0]["imageStandardResolutionUrl"].PHP_EOL;
-    echo $stories[0]["stories"][0]["imageHighResolutionUrl"].PHP_EOL;
-
-
-    $json = json_encode($elem);
-    $connection->send($json);*/
-}
-
 
 function badAction($connection, $event){
-    $connection->send(json_encode(
-        (object) [
-        "msg" => 'bad action',
-      ])
-    );
+  $connection->send(json_encode(
+      (object) [
+      "error" => 'bad action',
+    ])
+  );
 }
 
+function getMedias($medias){
+  foreach ($medias as $media){
+    $elem = (object)[
+      "getLink" => $media -> getLink(),
+      "getImageHighResolutionUrl" => $media -> getImageHighResolutionUrl(),
+      "getCaption" => $media -> getCaption(),
+      "getLikesCount" => $media -> getLikesCount(),
+      "getCommentsCount" => $media -> getCommentsCount(),
+      "id" => $media -> getOwnerId(),
+    ];
+    $arr[] = $elem;
+  }
+  return $arr;
+}
