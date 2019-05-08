@@ -1,3 +1,4 @@
+<!-- <p>{{photo | json}}</p> -->
 <div class="portfolio-theme">		
   <!-- Portfolio header starts -->
   <div class="pf-header">
@@ -35,7 +36,7 @@
         <div *ngFor="let elem of photo" class="p-element">
           <div class="img-style">
             <!-- Image -->
-            <img class="img-responsive" src="{{elem.linkUrl}}" alt="" />
+            <img class="img-responsive my-img" src="{{elem.linkUrl}}" target="_blank" alt="" />
             <!-- image hover style for image #1 -->
             <div class="image-hover">
               <!-- Image Caption -->
@@ -44,8 +45,8 @@
                 <h4>Some Heading</h4>
                 <!-- Paragraph -->
                 <p>Neque porro quisquam est  quis ex quis  qui dolorem.</p>
-                <a href="{{elem.linkUrl}}" class="lightbox"><i class="fa fa-search"></i></a> &nbsp;
-                <a href="ui-321.html#"><i class="fa fa-link"></i></a>  
+                <a href="{{elem.linkUrl}}" target="_blank" class="lightbox"><i class="fas fa-download"></i></a> &nbsp;
+                <a href="{{elem.link}}" target="_blank"><i class="fa fa-search"></i></a>  
               </div>
             </div>
           </div>

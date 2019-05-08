@@ -12,6 +12,9 @@ Designed by : http://responsivewebinc.com
 	font-family: 'Open Sans', sans-serif;
 	-webkit-font-smoothing: antialiased;
 }
+.my-img{
+	min-height: 176px!important;
+}
 .img-responsive{
   /* display: block; */
 	max-width: 100%;
