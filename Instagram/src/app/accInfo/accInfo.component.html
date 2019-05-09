@@ -1,28 +1,51 @@
 <!-- <p>{{photo | json}}</p> -->
+
 <div class="portfolio-theme">		
   <!-- Portfolio header starts -->
   <div class="pf-header">
-    <div class="container">
+    <div class="container my-portfolio-container">
       <div class="d-flex justify-content-center">
         <!-- Image -->
-        <a href={{accInfo.profilePicUrlHd}}><img src={{accInfo.profilePicUrlHd}} alt={{accInfo.username}} class="img-responsive"/></a>
+        <a href={{accInfo.profilePicUrlHd}} class="portfolio-photo"><img src={{accInfo.profilePicUrlHd}} alt={{accInfo.username}} class="img-responsive"/></a>
       </div>
       <!-- Name -->
-      <h1 class="text-light">{{accInfo.fullName}}</h1>
+      <div class="d-flex justify-content-center mt-3">
+      <a href={{getAccUrl(accInfo.username)}} target="_blank" class="d-flex justify-content-center"><h1 class="text-light acc-url">{{accInfo.fullName}}</h1></a>
+      </div>
       <h2 class="text-light">{{accInfo.biography}}</h2>
       <!-- Paragraph -->
       <!-- <p>Studious <span class="bg-red">London, UK</span> sees  quad quad nil molest. Lorem ipsum dolor sit amet,  adipi sicing elit donec ultrices lectus <span class="bg-green">Web Designer</span> ut conseqt. In et conseqt orci. <span class="bg-lblue">UI Developer</span> a male suada sem. Suspe ndisse  sed nibh nec imper diet.</p> -->
-      <p class="text-center">{{accInfo.mediaCount}} medias | {{accInfo.followedByCount}} followed | {{accInfo.followsCount}} follows</p>
-      <div class="buttons text-center">
-        <button mat-button class="show-button text-center" (click)="getPhoto(accInfo.username)">
+      <p class="text-center mt-0 mb-3">{{accInfo.mediaCount}} medias | {{accInfo.followedByCount}} followed | {{accInfo.followsCount}} follows</p>
+      
+
+
+      <div *ngIf='showPhotoBut' class="buttons text-center">
+        <button mat-button class="show-button text-center" (click)="getPhoto(accInfo.username)" [disabled]='showPhotoButSpinner'>
           Show photo
           <span *ngIf='showPhotoButSpinner' class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         </button>
       </div>
+      
+
+
+      <div *ngIf='showPrivate' class="text-center privateSection">
+        <i class="fas fa-lock"></i>
+        <h3 class="text-light mb-0">This is private acount</h3>
+        <p class="text-center mt-0">(the function of viewing such photos is in development)</p>
+      </div>
+
+      <div *ngIf='showEmptu' class="text-center privateSection">
+          <i class="fas fa-camera-retro"></i>
+          <h3 class="text-light mb-0">This user has no photos ):</h3>
+        <p class="text-center mt-0">(probably he is just not photogigish)</p>
+      </div>
+      
     </div>
   </div>
 
   <!-- Portfolio header ends -->
+
+
 
   <!-- Portfolio  gallery Starts -->
   <div *ngIf='showPhoto' class="portfolio pf-isotope container">
@@ -30,23 +53,32 @@
     <div class="portfolio-content">
       <div id="portfolio">
 
-        
+          <!-- <div *ngIf='collectionSize > maxSize' class="container d-flex justify-content-center">
+              <ngb-pagination
+                [(page)]="page"
+                [pageSize]="pageSize"
+                [maxSize]="maxSize" 
+                [rotate]="true" 
+                [boundaryLinks]="true"
+                [collectionSize]="collectionSize">
+              </ngb-pagination>
+            </div> -->
         
         <!-- Portfolio Image and Text Container -->
-        <div *ngFor="let elem of photo" class="p-element">
+        <div *ngFor="let elem of photo | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize" class="p-element d-flex align-items-center justify-content-center">
           <div class="img-style">
             <!-- Image -->
-            <img class="img-responsive my-img" src="{{elem.linkUrl}}" target="_blank" alt="" />
+            <img class="img-responsive my-img" src="{{elem.getImageHighResolutionUrl}}" target="_blank" alt="" />
             <!-- image hover style for image #1 -->
-            <div class="image-hover">
+            <div class="image-hover d-flex align-items-center justify-content-center">
               <!-- Image Caption -->
               <div class="image-caption">
                 <!-- Heading -->
-                <h4>Some Heading</h4>
+                <h4 class="mt-0"><i class="fas fa-heart"></i> {{elem.getLikesCount}} <i class="fas fa-comment"></i> {{elem.getCommentsCount}}</h4>
                 <!-- Paragraph -->
-                <p>Neque porro quisquam est  quis ex quis  qui dolorem.</p>
-                <a href="{{elem.linkUrl}}" target="_blank" class="lightbox"><i class="fas fa-download"></i></a> &nbsp;
-                <a href="{{elem.link}}" target="_blank"><i class="fa fa-search"></i></a>  
+                <p class="my-caption">{{elem.getCaption}}</p>
+                <a href="{{elem.getImageHighResolutionUrl}}" target="_blank" class="lightbox"><i class="fas fa-download"></i></a> &nbsp;
+                <a href="{{elem.getLink}}" target="_blank"><i class="fa fa-search"></i></a>  
               </div>
             </div>
           </div>

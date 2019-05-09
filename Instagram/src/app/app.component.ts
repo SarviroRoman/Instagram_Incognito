@@ -17,13 +17,14 @@ export class AppComponent {
   
   subscribeTo = this.websocketService.connect()
     .subscribe(data => {
-      if (data['username'] !== undefined) {
+      if (data['isPrivate'] !== undefined) {
         this.data = data;
         this.showSpinner = false; 
       }
     });
 
   
+  // emit = this.websocketService.emitEvent('getProfile', 'wlavanda');
+  // emit = this.websocketService.emitEvent('getProfile', 'bulakh.kirill');
   emit = this.websocketService.emitEvent('getProfile', 'nastyanvcv');
-
 }
