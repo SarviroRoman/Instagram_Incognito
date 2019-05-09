@@ -521,7 +521,7 @@ hr {
 /* Portfolio Site */
 .portfolio-theme .pf-header{
 	padding:60px 10px;
-	padding-bottom: 30px;
+	padding-bottom: 0px;
 }
 .portfolio-theme .pf-header img{
 	/* display:block; */
@@ -761,10 +761,30 @@ hr {
 	-moz-transition: all 1s ease-out;
 	-o-transition: all 1s ease-out;
 	-webkit-transition: all 1s ease-out;
-	}
+}
 	
-	.portfolio-photo img:hover{
+.portfolio-photo img:hover {
 	-webkit-transform: scale(1.1);
 	-moz-transform: scale(1.1);
 	-o-transform: scale(1.1);
-	}
+}
+
+.go-home {
+	position: fixed;
+	text-transform: uppercase;
+	color: rgb(161, 161, 161);
+	top: 25px;
+	left: 25px;
+	font-size: 30px;
+	font-weight: bold;
+	text-shadow: 2px 0 2px #000, 
+	0 2px 2px #000, 
+	-2px 0 2px #000, 
+	0 -2px 2px #000;
+}
+.go-home:hover {
+	color: white!important;
+}
+.go-hone-h3:hover {
+	color: white!important;
+}

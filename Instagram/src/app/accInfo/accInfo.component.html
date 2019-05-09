@@ -1,5 +1,10 @@
 <!-- <p>{{photo | json}}</p> -->
 
+<div class="d-flex justify-content-center align-items-center go-home">
+  <i class="fas fa-arrow-left"></i>
+  <p class="ml-2">new search</p>
+</div>
+
 <div class="portfolio-theme">		
   <!-- Portfolio header starts -->
   <div class="pf-header">
@@ -45,24 +50,24 @@
 
   <!-- Portfolio header ends -->
 
-
+  <div *ngIf='collectionSize > maxSize' class="container d-flex justify-content-center">
+      <ngb-pagination
+        [(page)]="page"
+        [pageSize]="pageSize"
+        [maxSize]="maxSize" 
+        [rotate]="true" 
+        [boundaryLinks]="true"
+        [collectionSize]="collectionSize">
+      </ngb-pagination>
+    </div>
 
   <!-- Portfolio  gallery Starts -->
-  <div *ngIf='showPhoto' class="portfolio pf-isotope container">
+  <div *ngIf='showPhoto' class="portfolio pf-isotope container mt-3 mb-3">
     <!-- Portfolio Block Content -->
     <div class="portfolio-content">
       <div id="portfolio">
 
-          <!-- <div *ngIf='collectionSize > maxSize' class="container d-flex justify-content-center">
-              <ngb-pagination
-                [(page)]="page"
-                [pageSize]="pageSize"
-                [maxSize]="maxSize" 
-                [rotate]="true" 
-                [boundaryLinks]="true"
-                [collectionSize]="collectionSize">
-              </ngb-pagination>
-            </div> -->
+
         
         <!-- Portfolio Image and Text Container -->
         <div *ngFor="let elem of photo | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize" class="p-element d-flex align-items-center justify-content-center">

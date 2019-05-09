@@ -49,6 +49,7 @@ export class AccInfoComponent {
           }
           this.photo.push(data[key]);
         }
+        this.collectionSize = this.photo.length;
         this.showPhotoButSpinner = false;
         this.showPhoto = true;
         this.showPhotoBut = false;
