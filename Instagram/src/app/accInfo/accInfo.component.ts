@@ -59,32 +59,26 @@ export class AccInfoComponent {
             this.showEmptu = true;
           }
         }
+        this.showPhotoButSpinner = true;
+        if (data['0'] !== undefined) {
+          for (let key in data) {
+            if (data[key].getCaption.length >= 60) {
+              data[key].getCaption = data[key].getCaption.slice(0, 60) + ' ...';
+            }
+            this.photo.push(data[key]);
+            this.showPhotoButSpinner = false;
+          }
+        }
       });
 
     let emit = this.websocketService.emitEvent('getProfile', String(name));
   }
 
   public getPhoto(name): void {
-    this.showPhotoButSpinner = true;
-    let subscribeTo = this.websocketService.connect()
-    .subscribe(data => {
-      if (data['0'] !== undefined) {
-        for (let key in data) {
-          if (data[key].getCaption.length >= 60) {
-            data[key].getCaption = data[key].getCaption.slice(0, 60) + ' ...';
-          }
-          this.photo.push(data[key]);
-        }
-        
-        this.collectionSize = this.photo.length;
-        this.showPhotoButSpinner = false;
-        this.showPhoto = true;
-        this.showPhotoBut = false;
-        this.showPagination = true;
-      }
-    });
-
-    let emit = this.websocketService.emitEvent('getMediaByUserName', name);
+    this.collectionSize = this.photo.length;
+    this.showPhoto = true;
+    this.showPhotoBut = false;
+    this.showPagination = true;
   }
 
   public getAccUrl(name){
