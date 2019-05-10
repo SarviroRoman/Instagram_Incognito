@@ -15,6 +15,8 @@ import { AlertModule } from 'ngx-bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 import { SpinnerComponent } from './spinner/spinner.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AccInfoComponent } from './accInfo/accInfo.component';
@@ -36,7 +38,8 @@ import { AccInfoComponent } from './accInfo/accInfo.component';
     FormsModule,
     MatInputModule,
     NgbModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent],

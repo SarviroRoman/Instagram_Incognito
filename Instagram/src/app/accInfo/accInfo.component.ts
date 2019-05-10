@@ -1,4 +1,5 @@
-import {Input, Component } from "@angular/core";
+import { Component } from "@angular/core";
+import { ActivatedRoute } from '@angular/router';
 import { WebsocketService } from '../web-socket_service';
 
 @Component({
@@ -8,10 +9,12 @@ import { WebsocketService } from '../web-socket_service';
 })
 
 export class AccInfoComponent {
-  @Input() accInfo: object;
 
   public photo = [];
+  public accInfo: object;
+  public name = 'nastyanvcv';
 
+  public showSpinner = false;
   public showPhotoButSpinner = false;
   public showPhoto = false;
   public showPhotoBut = true;
@@ -24,20 +27,43 @@ export class AccInfoComponent {
   public maxSize = 5;
   public collectionSize: number;
 
-  constructor (
+  constructor(
     private websocketService: WebsocketService,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(){
-    if (this.accInfo['isPrivate'] === true) {
-      this.showPhotoBut = false;
-      this.showPrivate = true;
-    } else if (this.accInfo['mediaCount'] === 0) {
-      this.showPhotoBut = false;
-      this.showEmptu = true;
-    }
+    this.showSpinner = true;
+
+    this.route
+    .queryParams
+    .subscribe(params => {
+      this.name = params['name'] || 'nastyanvcv';
+    });
+    
+    this.getAcc(this.name);
   }
   
+  public getAcc(name): void {
+    let subscribeTo = this.websocketService.connect()
+      .subscribe(data => {
+        if (data['isPrivate'] !== undefined) {
+          this.accInfo = data;
+          this.showSpinner = false;
+
+          if (this.accInfo['isPrivate'] === true) {
+            this.showPhotoBut = false;
+            this.showPrivate = true;
+          } else if (this.accInfo['mediaCount'] === 0) {
+            this.showPhotoBut = false;
+            this.showEmptu = true;
+          }
+        }
+      });
+
+    let emit = this.websocketService.emitEvent('getProfile', String(name));
+  }
+
   public getPhoto(name): void {
     this.showPhotoButSpinner = true;
     let subscribeTo = this.websocketService.connect()
@@ -49,6 +75,7 @@ export class AccInfoComponent {
           }
           this.photo.push(data[key]);
         }
+        
         this.collectionSize = this.photo.length;
         this.showPhotoButSpinner = false;
         this.showPhoto = true;

@@ -1,11 +1,12 @@
-<!-- <p>{{photo | json}}</p> -->
+<app-spinner *ngIf='showSpinner'></app-spinner>
 
-<div class="d-flex justify-content-center align-items-center go-home">
-  <i class="fas fa-arrow-left"></i>
-  <p class="ml-2">new search</p>
-</div>
+<div *ngIf='!showSpinner' class="portfolio-theme">
 
-<div class="portfolio-theme">		
+  <a class="nav-link d-flex justify-content-center align-items-center go-home" routerLink='welcome'>
+    <i class="fas fa-arrow-left"></i>
+    <p class="ml-2">new search</p>
+  </a>
+
   <!-- Portfolio header starts -->
   <div class="pf-header">
     <div class="container my-portfolio-container">
@@ -19,7 +20,6 @@
       </div>
       <h2 class="text-light">{{accInfo.biography}}</h2>
       <!-- Paragraph -->
-      <!-- <p>Studious <span class="bg-red">London, UK</span> sees  quad quad nil molest. Lorem ipsum dolor sit amet,  adipi sicing elit donec ultrices lectus <span class="bg-green">Web Designer</span> ut conseqt. In et conseqt orci. <span class="bg-lblue">UI Developer</span> a male suada sem. Suspe ndisse  sed nibh nec imper diet.</p> -->
       <p class="text-center mt-0 mb-3">{{accInfo.mediaCount}} medias | {{accInfo.followedByCount}} followed | {{accInfo.followsCount}} follows</p>
       
 
@@ -35,7 +35,7 @@
 
       <div *ngIf='showPrivate' class="text-center privateSection">
         <i class="fas fa-lock"></i>
-        <h3 class="text-light mb-0">This is private acount</h3>
+        <h3 class="text-light mb-0">This is private account</h3>
         <p class="text-center mt-0">(the function of viewing such photos is in development)</p>
       </div>
 
