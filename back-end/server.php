@@ -11,11 +11,6 @@ $ws_worker->count = 4;
 // Emitted when new connection come
 $ws_worker->onConnect = function($connection)
 {
-    $message = json_encode(
-        (object)[
-        "msg" => "Hello. I'm server. You connected",
-    ]);
-    $connection->send($message);
     echo "New connection\n";
  };
 
@@ -68,7 +63,6 @@ function getMediaByUserName($connection, $data){
   $allMedias = [];
 
   while ($response['hasNextPage'] != null){
-    // $medias = array_merge($medias, $response['medias']);
     $medias = $response['medias'];
     $allMedias = array_merge($allMedias, getMedias($medias));
     $response = $instagram->getPaginateMedias($data, $response['maxId']);
@@ -105,7 +99,10 @@ function getProfile($connection, $param){
 
   $json = json_encode($info);
   $connection->send($json);
-  getMediaByUserName($connection, $param);
+
+  if(!$account->isPrivate() && $account->getMediaCount()) {
+    getMediaByUserName($connection, $param);
+  }
   return true;
 }
 
