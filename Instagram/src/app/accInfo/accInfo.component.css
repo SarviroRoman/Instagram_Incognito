@@ -521,6 +521,7 @@ hr {
 /* Portfolio Site */
 .portfolio-theme .pf-header{
 	padding:60px 10px;
+	padding-bottom: 0px;
 }
 .portfolio-theme .pf-header img{
 	/* display:block; */
@@ -629,7 +630,8 @@ hr {
 			transform: scale(1.2) rotate(8deg);
 }
 .portfolio-theme .img-style  .image-caption {
-	margin-top: 12%;
+	/* margin-top: 12%; */
+	margin-top: 0px;
 	text-align: center;
 }
 .portfolio-theme .img-style  .image-caption h4 {
@@ -688,6 +690,101 @@ hr {
 	outline: none;	
 }
 .show-button:hover {
+	font-weight: bold;
 	color: black;
 	background: white;
+}
+
+.fa-comment {
+	margin-left: 10px;
+}
+
+.my-caption {
+	margin-bottom: 10px!important;
+}
+
+.acc-url {
+	display: inline-block;
+	color:white;
+	line-height: 1;
+	text-decoration:none;
+	cursor: pointer;
+	position:relative;
+}
+.acc-url:after {
+	background-color: white;
+	display: block;
+	content: "";
+	height: 2px;
+	width: 0%;
+	left:50%;
+	position:absolute;
+	-webkit-transition: width .3s ease-in-out;
+	-moz--transition: width .3s ease-in-out;
+	transition: width .3s ease-in-out;
+	-webkit-transform:translateX(-50%);
+	-moz-transform:translateX(-50%);
+	transform:translateX(-50%);
+}
+.acc-url:hover:after,
+.acc-url:focus:after {
+	width: 100%;
+}
+
+.my-portfolio-container {
+	max-width: 500px;
+}
+
+/* .privateSection {
+	margin-top: 25px;
+} */
+
+.privateSection h3 {
+	text-transform: uppercase;
+}
+
+.fa-lock {
+	height: 50px;
+	width: auto;
+}
+
+.fa-camera-retro {
+	height: 50px;
+	width: auto;
+}
+
+.portfolio-photo {
+	border-radius: 100%;
+	overflow:hidden;
+}
+.portfolio-photo img {
+	-moz-transition: all 1s ease-out;
+	-o-transition: all 1s ease-out;
+	-webkit-transition: all 1s ease-out;
+}
+	
+.portfolio-photo img:hover {
+	-webkit-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-o-transform: scale(1.1);
+}
+
+.go-home {
+	position: fixed;
+	text-transform: uppercase;
+	color: rgb(161, 161, 161);
+	top: 25px;
+	left: 25px;
+	font-size: 30px;
+	font-weight: bold;
+	text-shadow: 2px 0 2px #000, 
+	0 2px 2px #000, 
+	-2px 0 2px #000, 
+	0 -2px 2px #000;
+}
+.go-home:hover {
+	color: white!important;
+}
+.go-hone-h3:hover {
+	color: white!important;
 }
